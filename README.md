@@ -51,72 +51,158 @@ blog-post-management/
 
 
 
-nodemon.json==>
-{
-  "watch": ["app.js", "controllers", "models", "routes", "middleware"],
-  "ext": "js pug",
-  "ignore": ["node_modules"],
-  "exec": "node app.js"
-}
+---
 
+# 📄 FULL FINAL `README.md`
 
-blogDB
-OdtsieFCVzCzaH0R
+```markdown
+# Blog Post Management Website
 
+This is a full-stack blog post management system developed using Node.js, Express.js, MongoDB Atlas, Passport.js, Pug, and Bootstrap 5.
 
-# Blog Post Management System
-
-This is a blog post management web application developed using Node.js, Express.js, MongoDB Atlas, Passport.js, Pug, and Bootstrap 5.  
-It was created for the Web Application Frameworks (COMP6006) Practical Assignment.
+It allows users to register, log in, create blog posts, edit and delete their own posts, search posts, and includes an admin panel for managing all users and posts.
 
 ---
 
 ## 📋 Features
 
-- User Registration and Login (Authentication using Passport.js Local Strategy)
-- Passwords securely hashed with bcrypt
+- User Registration and Login (with Passport.js Local Strategy)
+- Passwords securely hashed using bcrypt
 - Session management using express-session
-- Flash messages for errors and success (Bootstrap alerts)
-- Create, View, Edit, and Delete your own blog posts
-- Search blog posts by Title or Tags (case-insensitive)
-- Responsive Frontend built with Pug and Bootstrap 5
-- Admin Panel (Bonus +5 Marks)
+- Flash messages shown as Bootstrap 5 Toasts (auto-hide)
+- Create, View, Edit, and Delete own blog posts
+- Publicly view all blog posts
+- Search blog posts by Title or Tags (partial match, case-insensitive)
+- Responsive frontend using Pug and Bootstrap 5
+- Input validation using Joi
+- Admin Panel:
   - View all users
   - View all blog posts
   - Delete any blog post
 
 ---
 
-## 🛠 Technologies Used
+## 🛠 Installed Dependencies
 
-- Node.js
-- Express.js
-- MongoDB Atlas with Mongoose
-- Passport.js (Local Strategy)
-- bcrypt
-- express-session
-- connect-flash
-- Pug Template Engine
-- Bootstrap 5
-- Joi (for form validation)
+| Package | Purpose |
+|---------|---------|
+| express | Web server framework |
+| mongoose | MongoDB object modeling |
+| passport | Authentication middleware |
+| passport-local | Local strategy for Passport |
+| bcrypt | Password hashing |
+| express-session | Session management |
+| connect-flash | Flash messages |
+| pug | Templating engine |
+| joi | Form input validation |
+| dotenv | Load environment variables |
 
 ---
 
-## 🚀 How to Run the Project Locally
+## 🚀 How to Download and Run Locally
 
-### 1. Install Dependencies
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/karakib2k18/Blog-Post-Management-Website.git
+cd Blog-Post-Management-Website
+```
+
+---
+
+### 2. Install Dependencies
 
 ```bash
 npm install
+```
+
+---
+
+### 3. Setup Environment Variables
+
+Create a `.env` file in the root directory.
+
+Inside `.env`, add:
+
+```
+MONGO_URI=mongodb+srv://blogDB:OdtsieFCVzCzaH0R@cluster0.3zctf.mongodb.net/blogDB?retryWrites=true&w=majority&appName=Cluster0
+```
+
+---
+
+### 4. Start the Server
+
+```bash
+npm run dev
+```
+or
+```bash
+npm start
+```
+
+✅ The server will start at:
+
+```
+http://localhost:3000
+```
+
+---
+
+## ✨ How to Access Admin Panel
+
+1. Register a new user normally.
+2. In MongoDB Atlas or Compass, manually set the user's `isAdmin` field to `true`.
+3. Login with that user.
+4. Visit:
+
+```
+http://localhost:3000/admin
+```
+
+---
+
+## 🌍 Live Deployment (Optional)
 
 
-## 2. Create a .env file in your project root Inside .env, add:
+**Live Link:**  
+```
+https://blog-post-management-website.onrender.com/posts
+```
 
-MONGO_URI=your_mongodb_atlas_connection_string
-Example: MONGO_URI=mongodb+srv://blogDB:OdtsieFCVzCzaH0R@cluster0.3zctf.mongodb.net/blogDB?retryWrites=true&w=majority&appName=Cluster0
+---
 
+## 📢 Notes
 
+- Passwords are securely hashed before saving to database.
+- Input validation is performed server-side using Joi.
+- Bootstrap 5 is used for responsive frontend.
+- Flash messages use Bootstrap Toasts for better user experience.
+- MongoDB Atlas used as database (cloud-hosted, free plan).
+- Admin access is protected using middleware.
 
-## 3. Start the Server: npm run dev
-Server will run at: http://localhost:3000# Blog-Post-Management-Website
-# Blog-Post-Management-Website
+---
+
+## 📚 Author
+
+**KAZI ABDUR RAKIB**  
+Curtin University | COMP6006 Web Application Frameworks Practical Assignment
+
+---
+```
+
+---
+
+# ✅ This README covers everything:
+
+| Section | Status |
+|---------|--------|
+| Features overview | ✅ |
+| All installed packages | ✅ |
+| How to clone and install | ✅ |
+| How to setup `.env` | ✅ |
+| How to run | ✅ |
+| Admin access instructions | ✅ |
+| Live deployed link section (optional) | ✅ |
+| Author information | ✅ |
+
+---

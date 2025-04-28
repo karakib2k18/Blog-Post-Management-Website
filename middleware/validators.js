@@ -1,20 +1,48 @@
 const Joi = require('joi');
 
-// Registration validation schema
+// Registration Validation Schema
 exports.registerSchema = Joi.object({
-  username: Joi.string().required(),
-  password: Joi.string().min(6).required()
+  username: Joi.string()
+    .pattern(/^[A-Za-z]+$/)
+    .required()
+    .messages({
+      'string.pattern.base': 'Username must contain only alphabets (A-Z, a-z) without spaces.',
+      'string.empty': 'Username is required.'
+    }),
+  password: Joi.string()
+    .min(6)
+    .required()
+    .messages({
+      'string.min': 'Password must be at least 6 characters long.',
+      'string.empty': 'Password is required.'
+    })
 });
 
-// Login validation schema
+// Login Validation Schema
 exports.loginSchema = Joi.object({
-  username: Joi.string().required(),
-  password: Joi.string().required()
+  username: Joi.string()
+    .required()
+    .messages({
+      'string.empty': 'Username is required.'
+    }),
+  password: Joi.string()
+    .required()
+    .messages({
+      'string.empty': 'Password is required.'
+    })
 });
 
-// Blog Post validation schema
+// Blog Post Validation Schema
 exports.postSchema = Joi.object({
-  title: Joi.string().required(),
-  content: Joi.string().required(),
+  title: Joi.string()
+    .required()
+    .messages({
+      'string.empty': 'Title is required.'
+    }),
+  content: Joi.string()
+    .required()
+    .messages({
+      'string.empty': 'Content is required.'
+    }),
   tags: Joi.string().allow('')
 });
