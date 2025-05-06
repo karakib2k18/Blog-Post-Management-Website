@@ -1,13 +1,16 @@
 extends ../layouts/layout
 
 block content
-  h1= post.title
+  h1.mb-3= post.title
 
   p= post.content
   p.text-muted Posted by #{post.createdBy.username}
 
   if user && user._id.toString() === post.createdBy._id.toString()
-    a.btn.btn-primary(href=`/posts/${post._id}/edit`) Edit
-    a.btn.btn-danger(href=`/posts/${post._id}/delete`) Delete
-
-  a.btn.btn-secondary.mt-3(href='/posts') Back to Posts
+    .d-flex.gap-2.mt-4
+      a.btn.btn-primary(href=`/posts/${post._id}/edit`) Edit
+      a.btn.btn-danger(href=`/posts/${post._id}/delete`) Delete
+      a.btn.btn-secondary(href='/posts') Back to Posts
+  else
+    .mt-4
+      a.btn.btn-secondary(href='/posts') Back to Posts

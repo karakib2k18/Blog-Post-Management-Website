@@ -1,23 +1,93 @@
+//- extends ../layouts/layout
+
+//- block content
+//-   h1 Blog Posts
+
+//-   // Search Form
+//-   form(class="d-flex mb-4", method="GET", action="/posts")
+//-     input.form-control.me-2(type="search", name="search", placeholder="Search by title or tags...", value=search)
+//-     button.btn.btn-outline-success(type="submit") Search
+
+//-   //if user
+//-   a.btn.btn-success.mb-3(href='/posts/new') Create New Post
+
+//-   each post in posts
+//-     .card.mb-4
+//-       .card-body
+//-         h5.card-title= post.title
+//-         p.card-text= post.content.substring(0, 150) + '...'
+//-         p.text-muted Posted by #{post.createdBy.username}
+//-         a.btn.btn-outline-primary.mt-2(href=`/posts/${post._id}`) View Post
+//-         if user && user._id.toString() === post.createdBy._id.toString()
+//-           a.btn.btn-primary.mt-2.ms-2(href=`/posts/${post._id}/edit`) Edit
+//-           a.btn.btn-danger.mt-2.ms-2(href=`/posts/${post._id}/delete`) Delete
+
+//- if posts.length
+//-   .row
+//-     each post, index in posts
+//-       .col-md-3.mb-4
+//-         .card.h-100.shadow-sm
+//-           .card-body.d-flex.flex-column
+//-             h5.card-title= post.title
+
+//-             if post.tags && post.tags.length
+//-               p.card-subtitle.text-muted.mb-2
+//-                 | Tags: #{post.tags.join(', ')}
+
+//-             if post.content
+//-               p.card-text.mb-3
+//-                 = post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content
+
+//-             .mt-auto
+//-               a.btn.btn-sm.btn-primary(href=`/posts/${post._id}`) View
+//-               if user && user._id.toString() === post.createdBy._id.toString()
+//-                 a.btn.btn-sm.btn-warning.ms-2(href=`/posts/${post._id}/edit`) Edit
+//-                 a.btn.btn-sm.btn-danger.ms-2(href=`/posts/${post._id}/delete`) Delete
+//- else
+//-   p.text-muted No posts available.
+
+
+
+
+
+
+
+
+
+
 extends ../layouts/layout
 
 block content
-  h1 Blog Posts
+  h1.mb-4 Blog Posts
 
   // Search Form
-  form(class="d-flex mb-4", method="GET", action="/posts")
+  form.d-flex.mb-4(method="GET", action="/posts")
     input.form-control.me-2(type="search", name="search", placeholder="Search by title or tags...", value=search)
     button.btn.btn-outline-success(type="submit") Search
 
-  //if user
-  a.btn.btn-success.mb-3(href='/posts/new') Create New Post
+  if user
+    a.btn.btn-success.mb-4(href='/posts/new') + Create New Post
 
-  each post in posts
-    .card.mb-4
-      .card-body
-        h5.card-title= post.title
-        p.card-text= post.content.substring(0, 150) + '...'
-        p.text-muted Posted by #{post.createdBy.username}
-        a.btn.btn-outline-primary.mt-2(href=`/posts/${post._id}`) View Post
-        if user && user._id.toString() === post.createdBy._id.toString()
-          a.btn.btn-primary.mt-2.ms-2(href=`/posts/${post._id}/edit`) Edit
-          a.btn.btn-danger.mt-2.ms-2(href=`/posts/${post._id}/delete`) Delete
+  if posts.length
+    .row
+      each post in posts
+        .col-md-3.mb-4
+          .card.h-100.shadow-sm
+            .card-body.d-flex.flex-column
+              h5.card-title= post.title
+
+              if post.tags && post.tags.length
+                p.card-subtitle.text-muted.mb-2
+                  | Tags: #{post.tags.join(', ')}
+
+              if post.content
+                p.card-text.mb-3
+                  = post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content
+
+              .mt-auto
+                a.btn.btn-sm.btn-primary(href=`/posts/${post._id}`) View
+                if user && user._id.toString() === post.createdBy._id.toString()
+                  a.btn.btn-sm.btn-warning.ms-2(href=`/posts/${post._id}/edit`) Edit
+                  a.btn.btn-sm.btn-danger.ms-2(href=`/posts/${post._id}/delete`) Delete
+  else
+    p.text-muted No posts available.

@@ -5,6 +5,7 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css")
     link(rel="stylesheet", href="/css/styles.css")
+
   body
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
       .container
@@ -27,17 +28,13 @@ html
               li.nav-item
                 a.nav-link(href='/register') Register
 
-.container.mt-4
-  if typeof success !== 'undefined' && String(success).trim() !== ''
-    .alert.alert-success(role="alert")
-      = success
+    .container.mt-4
+      if typeof success !== 'undefined' && String(success).trim() !== ''
+        .alert.alert-success(role="alert")= success
 
-  if typeof error !== 'undefined' && String(error).trim() !== ''
-    .alert.alert-danger(role="alert")
-      = error
+      if typeof error !== 'undefined' && String(error).trim() !== ''
+        .alert.alert-danger(role="alert")= error
 
-  block content
-
-
+      block content
 
     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js")
