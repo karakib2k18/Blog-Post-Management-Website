@@ -124,3 +124,13 @@ exports.deletePost = async (req, res) => {
     res.status(500).send('Error deleting post');
   }
 };
+
+exports.userDashboard = async (req, res) => {
+  try {
+    const posts = await Post.find({ createdBy: req.user._id }).sort({ createdAt: -1 });
+    res.render('posts/dashboard', { posts });
+  } catch (err) {
+    req.flash('error', 'Unable to load your posts');
+    res.redirect('/posts');
+  }
+};

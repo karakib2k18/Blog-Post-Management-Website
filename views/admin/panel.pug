@@ -3,39 +3,94 @@ extends ../layouts/layout
 block content
   h1.mb-4 Admin Panel
 
-  // Users Section
-  .card.shadow.mb-5
-    .card-header.bg-primary.text-white
-      h4.mb-0 Users
-    .card-body.p-0
-      table.table.table-striped.mb-0
-        thead
-          tr.bg-light
-            th Username
-            th Is Admin?
-        tbody
-          each user in users
-            tr
-              td= user.username
-              td= user.isAdmin ? 'true' : 'false'
+  h3 Users
 
-  // Blog Posts Section
-  .card.shadow
-    .card-header.bg-success.text-white
-      h4.mb-0 Blog Posts
-    .card-body.p-0
-      table.table.table-hover.mb-0
-        thead
-          tr.bg-light
-            th Title
-            th Author
-            th.text-center Actions
-        tbody
-          each post in posts
-            tr
-              td= post.title
-              td= post.createdBy.username
-              td.text-center
-                a.btn.btn-info.btn-sm.me-2(href=`/posts/${post._id}`) View
-                form(method="POST", action=`/admin/posts/${post._id}?_method=DELETE`, style="display:inline")
-                  button.btn.btn-danger.btn-sm(type="submit" onclick="return confirm('Are you sure you want to delete this post?')") Delete
+  .d-flex.justify-content-between.align-items-center.mb-3
+    .d-flex.align-items-center
+      label.form-label.me-2(for="userLimitSelect") Show
+      select#userLimitSelect.form-select.w-auto(onchange="location = this.value")
+        option(value=`/admin?userLimit=5&userPage=${userPage}&limit=${limit}&page=${currentPage}` selected=userLimit==5) 5
+        option(value=`/admin?userLimit=10&userPage=${userPage}&limit=${limit}&page=${currentPage}` selected=userLimit==10) 10
+        option(value=`/admin?userLimit=20&userPage=${userPage}&limit=${limit}&page=${currentPage}` selected=userLimit==20) 20
+        option(value=`/admin?userLimit=50&userPage=${userPage}&limit=${limit}&page=${currentPage}` selected=userLimit==50) 50
+      span.ms-2 entries per page
+
+    nav(aria-label="User Page navigation")
+      ul.pagination.mb-0
+        if userPage > 1
+          li.page-item
+            a.page-link(href=`/admin?userPage=${userPage - 1}&userLimit=${userLimit}&page=${currentPage}&limit=${limit}`) Previous
+        else
+          li.page-item.disabled
+            span.page-link Previous
+
+        each val in [...Array(userPages).keys()]
+          - const up = val + 1;
+          li.page-item(class= userPage === up ? 'active' : '')
+            a.page-link(href=`/admin?userPage=${up}&userLimit=${userLimit}&page=${currentPage}&limit=${limit}`)= up
+
+        if userPage < userPages
+          li.page-item
+            a.page-link(href=`/admin?userPage=${userPage + 1}&userLimit=${userLimit}&page=${currentPage}&limit=${limit}`) Next
+        else
+          li.page-item.disabled
+            span.page-link Next
+
+  table.table.table-striped
+    thead
+      tr
+        th Username
+        th Is Admin?
+    tbody
+      each user in users
+        tr
+          td= user.username
+          td= user.isAdmin ? 'true' : 'false'
+
+  h3.mt-5 Blog Posts
+
+  .d-flex.justify-content-between.align-items-center.mb-3
+    .d-flex.align-items-center
+      label.form-label.me-2(for="entriesSelect") Show
+      select#entriesSelect.form-select.w-auto(onchange="location = this.value")
+        option(value=`/admin?page=${currentPage}&limit=5&userPage=${userPage}&userLimit=${userLimit}` selected=limit==5) 5
+        option(value=`/admin?page=${currentPage}&limit=10&userPage=${userPage}&userLimit=${userLimit}` selected=limit==10) 10
+        option(value=`/admin?page=${currentPage}&limit=20&userPage=${userPage}&userLimit=${userLimit}` selected=limit==20) 20
+        option(value=`/admin?page=${currentPage}&limit=50&userPage=${userPage}&userLimit=${userLimit}` selected=limit==50) 50
+      span.ms-2 entries per page
+
+    nav(aria-label="Post Page navigation")
+      ul.pagination.mb-0
+        if currentPage > 1
+          li.page-item
+            a.page-link(href=`/admin?page=${currentPage - 1}&limit=${limit}&userPage=${userPage}&userLimit=${userLimit}`) Previous
+        else
+          li.page-item.disabled
+            span.page-link Previous
+
+        each val in [...Array(totalPages).keys()]
+          - const p = val + 1;
+          li.page-item(class= currentPage === p ? 'active' : '')
+            a.page-link(href=`/admin?page=${p}&limit=${limit}&userPage=${userPage}&userLimit=${userLimit}`)= p
+
+        if currentPage < totalPages
+          li.page-item
+            a.page-link(href=`/admin?page=${currentPage + 1}&limit=${limit}&userPage=${userPage}&userLimit=${userLimit}`) Next
+        else
+          li.page-item.disabled
+            span.page-link Next
+
+  table.table.table-striped
+    thead
+      tr
+        th Title
+        th Author
+        th Actions
+    tbody
+      each post in posts
+        tr
+          td= post.title
+          td= post.createdBy.username
+          td
+            form(method="POST", action=`/admin/delete/${post._id}`)
+              button.btn.btn-danger.btn-sm(type="submit") Delete

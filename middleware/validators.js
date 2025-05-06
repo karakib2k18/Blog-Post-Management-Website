@@ -3,7 +3,7 @@ const Joi = require('joi');
 // Registration Validation Schema
 exports.registerSchema = Joi.object({
   username: Joi.string()
-    .pattern(/^[A-Za-z]+$/)
+    .min(6)
     .required()
     .messages({
       'string.pattern.base': 'Username must contain only alphabets (A-Z, a-z) without spaces.',

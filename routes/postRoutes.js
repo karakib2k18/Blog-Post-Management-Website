@@ -5,6 +5,7 @@ const { isLoggedIn, isOwner } = require('../middleware/authMiddleware');
 
 // View all posts
 router.get('/', postController.listPosts);
+router.get('/my-posts', isLoggedIn, postController.userDashboard);
 
 // Create new post
 router.get('/new', isLoggedIn, postController.getNewPost);
