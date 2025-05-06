@@ -8,8 +8,8 @@ block content
     input.form-control.me-2(type="search", name="search", placeholder="Search by title or tags...", value=search)
     button.btn.btn-outline-success(type="submit") Search
 
-  if user
-    a.btn.btn-success.mb-3(href='/posts/new') Create New Post
+  //if user
+  a.btn.btn-success.mb-3(href='/posts/new') Create New Post
 
   each post in posts
     .card.mb-4
